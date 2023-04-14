@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ articulo }}{% endblock %}
+{% block contenido %}
+    <main class="container">
+        <h1>{{ articulo.nombre }}</h1>
+        <p>{{ articulo.descripcion }}</p>
+        Precio: <strong>{{ articulo.precio }}</strong>
+        <p>Publicado con fecha {{ articulo.fecha_publicacion }}</p>
+    </main>
+{% endblock %}

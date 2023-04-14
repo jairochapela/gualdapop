@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block titulo %}Artículos en venta{% endblock %}
+{% block contenido %}
+<h1>Artículos en venta</h1>
+
+<main class="container">
+    <div class="row">
+        {% for articulo in articulos %}
+        <article class="col-4 px-2 my-3">
+            <div class="card">
+                <img src="https://picsum.photos/id/{{articulo.id}}/300/200" alt="" class="card-img-top">
+                <div class="card-body">
+                    <h2>{{ articulo.nombre }}</h2>
+                    <strong>{{ articulo.precio }}</strong>
+                    <p>Publicado con fecha {{ articulo.fecha_publicacion }}</p>
+                    <a href="{% url 'detalle_articulo' articulo.id %}">Ver detalle</a>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</main>
+
+<a href="{% url 'publicar_oferta' %}">Publica tu articulo</a>
+{% endblock %}
