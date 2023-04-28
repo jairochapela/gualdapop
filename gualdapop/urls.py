@@ -19,12 +19,13 @@ from django.urls import include, path
 from django.conf import settings # Importamos la configuración de la aplicación
 from django.conf.urls.static import static # Importamos la función para servir ficheros estáticos
 
-from compraventa.views import detalle_articulo, listado_articulos, PublicarOfertaView
+from compraventa.views import ComprarView, detalle_articulo, listado_articulos, PublicarOfertaView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', listado_articulos, name='listado_articulos'),  # Página principal
     path('articulos/<int:id>', detalle_articulo, name='detalle_articulo'),
     path('publicar-oferta/', PublicarOfertaView.as_view(), name='publicar_oferta'),
+    path('comprar/<int:id>', ComprarView.as_view(), name='comprar'),
     path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

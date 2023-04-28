@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block titulo %}{{ articulo }}{% endblock %}
+{% block titulo %}Comprar {{ articulo }}{% endblock %}
 {% block contenido %}
     <main class="container">
         <div class="row">
@@ -12,17 +12,13 @@
                 {% endif %}
             </div>
             <div class="col-8">
-                <h1>{{ articulo.nombre }}</h1>
-                <p>{{ articulo.descripcion }}</p>
-                Precio: <strong>{{ articulo.precio }}</strong>
-        
-                <p>Publicado con fecha {{ articulo.fecha_publicacion }}</p>
-
-                {% if articulo.vendido %}
-                <p class="text-danger">VENDIDO</p>
-                {% else %}
-                <a href="{% url 'comprar' articulo.id %}" class="btn btn-primary">Comprar</a>
-                {% endif %}
+                <h1>¿Deseas comprar {{ articulo.nombre }}?</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input class="btn btn-success" type="submit" value="Sí, Comprar">
+                    <a href="{% url 'detalle_articulo' articulo.id %}" class="btn btn-danger">No, Cancelar</a>
+                </form>
             </div>
         </div>
 

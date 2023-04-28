@@ -16,6 +16,9 @@
                 {% endif %}    
                 <div class="card-body">
                     <h2>{{ articulo.nombre }}</h2>
+                    {% if articulo.vendido %}
+                    <p class="text-danger">VENDIDO</p>
+                    {% endif %}
                     <strong>{{ articulo.precio }}</strong>
                     <p>Publicado con fecha {{ articulo.fecha_publicacion }}</p>
                     <a href="{% url 'detalle_articulo' articulo.id %}">Ver detalle</a>

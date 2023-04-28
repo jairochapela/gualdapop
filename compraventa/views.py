@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from compraventa.forms import PublicarOfertaForm
+from compraventa.forms import ComprarForm, PublicarOfertaForm
 
 from compraventa.models import Articulo
 
@@ -33,7 +33,28 @@ class PublicarOfertaView(LoginRequiredMixin, View):
             articulo = Articulo(
                 nombre=form.cleaned_data['nombre'],
                 descripcion=form.cleaned_data['descripcion'],
-                precio=form.cleaned_data['precio']
+                precio=form.cleaned_data['precio'],
+                vendedor=request.user
             )
             articulo.save() # Guardar el artículo en la base de datos
             return redirect('listado_articulos')
+        else:
+            return render(request, 'compraventa/publicar_oferta.html', {'form': form})
+        
+        
+class ComprarView(LoginRequiredMixin, View):
+    def get(self, request, id):
+        articulo = Articulo.objects.get(pk=id)
+        form = ComprarForm()
+        return render(request, 'compraventa/comprar.html', {'articulo': articulo, 'form': form})
+    
+    def post(self, request, id):
+        articulo = Articulo.objects.get(pk=id)
+        form = ComprarForm(request.POST)
+        if form.is_valid():
+            articulo.vendido = True
+            articulo.comprador = request.user
+            articulo.save()
+            return redirect('listado_articulos')
+        else:
+            return render(request, 'compraventa/comprar.html', {'articulo': articulo, 'form': form})

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Articulo(models.Model):
@@ -8,6 +9,8 @@ class Articulo(models.Model):
     fecha_publicacion = models.DateField(auto_now_add=True)
     vendido = models.BooleanField(default=False)
     foto = models.ImageField(upload_to='fotos', blank=True, null=True)
+    vendedor = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='vendedor')
+    comprador = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='comprador')
 
     def __str__(self):
         return self.nombre
