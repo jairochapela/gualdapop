@@ -7,6 +7,7 @@ class Articulo(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2, blank=False, null=False)
     fecha_publicacion = models.DateField(auto_now_add=True)
     vendido = models.BooleanField(default=False)
+    foto = models.ImageField(upload_to='fotos', blank=True, null=True)
 
     def __str__(self):
         return self.nombre

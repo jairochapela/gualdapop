@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings # Importamos la configuración de la aplicación
+from django.conf.urls.static import static # Importamos la función para servir ficheros estáticos
 
 from compraventa.views import detalle_articulo, listado_articulos, PublicarOfertaView
 
@@ -25,4 +27,4 @@ urlpatterns = [
     path('articulos/<int:id>', detalle_articulo, name='detalle_articulo'),
     path('publicar-oferta/', PublicarOfertaView.as_view(), name='publicar_oferta'),
     path('accounts/', include('django.contrib.auth.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

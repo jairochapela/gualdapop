@@ -27,7 +27,7 @@ class PublicarOfertaView(LoginRequiredMixin, View):
         return render(request, 'compraventa/publicar_oferta.html', {'form': form})
     
     def post(self, request):
-        form = PublicarOfertaForm(request.POST)
+        form = PublicarOfertaForm(request.POST) # Recogida de los datos del formulario
         if form.is_valid():
             # Crear el artículo con los datos del formulario
             articulo = Articulo(
@@ -35,5 +35,5 @@ class PublicarOfertaView(LoginRequiredMixin, View):
                 descripcion=form.cleaned_data['descripcion'],
                 precio=form.cleaned_data['precio']
             )
-            articulo.save()
+            articulo.save() # Guardar el artículo en la base de datos
             return redirect('listado_articulos')
