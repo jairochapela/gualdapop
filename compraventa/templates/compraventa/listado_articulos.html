@@ -21,7 +21,7 @@
                     {% endif %}
                     <strong>{{ articulo.precio }}</strong>
                     <p>Publicado con fecha {{ articulo.fecha_publicacion }}</p>
-                    <a href="{% url 'detalle_articulo' articulo.id %}">Ver detalle</a>
+                    <a class="btn btn-primary" href="{% url 'detalle_articulo' articulo.id %}">Ver detalle</a>
                 </div>
             </div>
         </article>
